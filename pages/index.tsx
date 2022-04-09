@@ -9,7 +9,9 @@ import Brands from '../components/Brands'
 import MoviesCollections from '../components/MoviesCollection'
 import ShowsCollections from '../components/ShowsCollection'
 
-const Home: NextPage = ({
+
+
+const Home: NextPage<any> = ({
   popularMovies,
   popularShows,
   top_ratedMovies,
@@ -51,7 +53,7 @@ const Home: NextPage = ({
 }
 
 export default Home
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context:any) {
   const session = await getSession(context);
 
   const [
