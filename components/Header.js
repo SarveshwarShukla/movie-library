@@ -19,11 +19,11 @@ const Header = () => {
 
                     <div className="hidden ml-10 text-white lg:flex items-center space-x-6">
                         <a className="header-link group" onClick={()=> router.push("/")}>Home</a>
-                        <a className="header-link group" onClick={()=> router.push("/")}>Search</a>
-                        <a className="header-link group" onClick={()=> router.push("/")}>Watchlist</a>
-                        <a className="header-link group" onClick={()=> router.push("/")}>Originals</a>
+                        <a className="header-link group" onClick={()=> router.push("/")}>Shows</a>
                         <a className="header-link group" onClick={()=> router.push("/")}>Movies</a>
-                        <a className="header-link group" onClick={()=> router.push("/")}>Series</a>
+                        <a className="header-link group" onClick={()=> router.push("/")}>Originals</a>
+                        <a className="header-link group" onClick={()=> router.push("/")}>Watchlist</a>
+                        <a className="header-link group" onClick={()=> router.push("/")}>Search</a>
                     </div>
                 )
             }

@@ -14,14 +14,17 @@ const Home: NextPage = ({
   popularShows,
   top_ratedMovies,
   top_ratedShows,
+  upcomingMovies,
+  latestMovies,
+  upcomingShows,
+  latestShows,
 }) => {
-  console.log(popularMovies);
   
   const [session] = useSession()
   return (
     <div className="">
       <Head>
-        <title>Create Next App</title>
+        <title>Movie Library</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
@@ -33,8 +36,14 @@ const Home: NextPage = ({
           <Brands />
           <MoviesCollections results={popularMovies} title="Popular Movies"/>
           <MoviesCollections results={top_ratedMovies} title="Top Rated Movies"/>
+          <MoviesCollections results={upcomingMovies} title="Upcoming Movies"/>
+          <MoviesCollections results={latestMovies} title="Latest Movies"/>
+
+
           <ShowsCollections results={popularShows} title="Popular Shows"/>
           <ShowsCollections results={top_ratedShows} title="Top Rated Shows" />
+          <ShowsCollections results={upcomingShows} title="Upcoming Shows"/>
+          <ShowsCollections results={latestShows} title="Latest Shows"/>
         </main>
       )}
     </div>
@@ -50,6 +59,11 @@ export async function getServerSideProps(context) {
     popularShowsRes,
     top_ratedMoviesRes,
     top_ratedShowsRes,
+    upcomingMoviesRes,
+    latestMoviesRes,
+    upcomingShowsRes,
+    latestShowsRes,
+
   ] = await Promise.all([
     fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
@@ -63,13 +77,31 @@ export async function getServerSideProps(context) {
     fetch(
       `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`
     ),
+    fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=2`
+    ),
+    fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=3`
+    ),
+    fetch(
+      `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=5`
+    ),
+    fetch(
+      `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.API_KEY}&language=en-US&page=3`
+    ),
+
+
   ]);
-  const [popularMovies, popularShows, top_ratedMovies, top_ratedShows] =
+  const [popularMovies, popularShows, top_ratedMovies, top_ratedShows, upcomingMovies, latestMovies, upcomingShows, latestShows] =
     await Promise.all([
       popularMoviesRes.json(),
       popularShowsRes.json(),
       top_ratedMoviesRes.json(),
       top_ratedShowsRes.json(),
+      upcomingMoviesRes.json(),
+      latestMoviesRes.json(),
+      upcomingShowsRes.json(),
+      latestShowsRes.json(),
     ]);
 
   return {
@@ -79,6 +111,10 @@ export async function getServerSideProps(context) {
       popularShows: popularShows.results,
       top_ratedMovies: top_ratedMovies.results,
       top_ratedShows: top_ratedShows.results,
+      upcomingMovies: upcomingMovies.results,
+      latestMovies: latestMovies.results,
+      upcomingShows: upcomingShows.results,
+      latestShows: latestShows.results,
     },
   };
 }
